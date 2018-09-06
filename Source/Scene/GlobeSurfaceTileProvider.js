@@ -1,95 +1,95 @@
 define([
-        '../Core/BoundingSphere',
-        '../Core/BoxOutlineGeometry',
-        '../Core/Cartesian2',
-        '../Core/Cartesian3',
-        '../Core/Cartesian4',
-        '../Core/Color',
-        '../Core/ColorGeometryInstanceAttribute',
-        '../Core/combine',
-        '../Core/defaultValue',
-        '../Core/defined',
-        '../Core/defineProperties',
-        '../Core/destroyObject',
-        '../Core/DeveloperError',
-        '../Core/Event',
-        '../Core/GeometryInstance',
-        '../Core/GeometryPipeline',
-        '../Core/IndexDatatype',
-        '../Core/Intersect',
-        '../Core/Math',
-        '../Core/Matrix4',
-        '../Core/OrientedBoundingBox',
-        '../Core/OrthographicFrustum',
-        '../Core/PrimitiveType',
-        '../Core/Rectangle',
-        '../Core/SphereOutlineGeometry',
-        '../Core/TerrainQuantization',
-        '../Core/Visibility',
-        '../Core/WebMercatorProjection',
-        '../Renderer/Buffer',
-        '../Renderer/BufferUsage',
-        '../Renderer/ContextLimits',
-        '../Renderer/DrawCommand',
-        '../Renderer/Pass',
-        '../Renderer/RenderState',
-        '../Renderer/VertexArray',
-        '../Scene/BlendingState',
-        '../Scene/DepthFunction',
-        '../Scene/PerInstanceColorAppearance',
-        '../Scene/Primitive',
-        './ClippingPlaneCollection',
-        './GlobeSurfaceTile',
-        './ImageryLayer',
-        './QuadtreeTileLoadState',
-        './SceneMode',
-        './ShadowMode'
-    ], function(
-        BoundingSphere,
-        BoxOutlineGeometry,
-        Cartesian2,
-        Cartesian3,
-        Cartesian4,
-        Color,
-        ColorGeometryInstanceAttribute,
-        combine,
-        defaultValue,
-        defined,
-        defineProperties,
-        destroyObject,
-        DeveloperError,
-        Event,
-        GeometryInstance,
-        GeometryPipeline,
-        IndexDatatype,
-        Intersect,
-        CesiumMath,
-        Matrix4,
-        OrientedBoundingBox,
-        OrthographicFrustum,
-        PrimitiveType,
-        Rectangle,
-        SphereOutlineGeometry,
-        TerrainQuantization,
-        Visibility,
-        WebMercatorProjection,
-        Buffer,
-        BufferUsage,
-        ContextLimits,
-        DrawCommand,
-        Pass,
-        RenderState,
-        VertexArray,
-        BlendingState,
-        DepthFunction,
-        PerInstanceColorAppearance,
-        Primitive,
-        ClippingPlaneCollection,
-        GlobeSurfaceTile,
-        ImageryLayer,
-        QuadtreeTileLoadState,
-        SceneMode,
-        ShadowMode) {
+    '../Core/BoundingSphere',
+    '../Core/BoxOutlineGeometry',
+    '../Core/Cartesian2',
+    '../Core/Cartesian3',
+    '../Core/Cartesian4',
+    '../Core/Color',
+    '../Core/ColorGeometryInstanceAttribute',
+    '../Core/combine',
+    '../Core/defaultValue',
+    '../Core/defined',
+    '../Core/defineProperties',
+    '../Core/destroyObject',
+    '../Core/DeveloperError',
+    '../Core/Event',
+    '../Core/GeometryInstance',
+    '../Core/GeometryPipeline',
+    '../Core/IndexDatatype',
+    '../Core/Intersect',
+    '../Core/Math',
+    '../Core/Matrix4',
+    '../Core/OrientedBoundingBox',
+    '../Core/OrthographicFrustum',
+    '../Core/PrimitiveType',
+    '../Core/Rectangle',
+    '../Core/SphereOutlineGeometry',
+    '../Core/TerrainQuantization',
+    '../Core/Visibility',
+    '../Core/WebMercatorProjection',
+    '../Renderer/Buffer',
+    '../Renderer/BufferUsage',
+    '../Renderer/ContextLimits',
+    '../Renderer/DrawCommand',
+    '../Renderer/Pass',
+    '../Renderer/RenderState',
+    '../Renderer/VertexArray',
+    '../Scene/BlendingState',
+    '../Scene/DepthFunction',
+    '../Scene/PerInstanceColorAppearance',
+    '../Scene/Primitive',
+    './ClippingPlaneCollection',
+    './GlobeSurfaceTile',
+    './ImageryLayer',
+    './QuadtreeTileLoadState',
+    './SceneMode',
+    './ShadowMode'
+], function(
+    BoundingSphere,
+    BoxOutlineGeometry,
+    Cartesian2,
+    Cartesian3,
+    Cartesian4,
+    Color,
+    ColorGeometryInstanceAttribute,
+    combine,
+    defaultValue,
+    defined,
+    defineProperties,
+    destroyObject,
+    DeveloperError,
+    Event,
+    GeometryInstance,
+    GeometryPipeline,
+    IndexDatatype,
+    Intersect,
+    CesiumMath,
+    Matrix4,
+    OrientedBoundingBox,
+    OrthographicFrustum,
+    PrimitiveType,
+    Rectangle,
+    SphereOutlineGeometry,
+    TerrainQuantization,
+    Visibility,
+    WebMercatorProjection,
+    Buffer,
+    BufferUsage,
+    ContextLimits,
+    DrawCommand,
+    Pass,
+    RenderState,
+    VertexArray,
+    BlendingState,
+    DepthFunction,
+    PerInstanceColorAppearance,
+    Primitive,
+    ClippingPlaneCollection,
+    GlobeSurfaceTile,
+    ImageryLayer,
+    QuadtreeTileLoadState,
+    SceneMode,
+    ShadowMode) {
     'use strict';
 
     /**
@@ -329,7 +329,7 @@ define([
         return aImagery.imageryLayer._layerIndex - bImagery.imageryLayer._layerIndex;
     }
 
-     /**
+    /**
      * Make updates to the tile provider that are not involved in rendering. Called before the render update cycle.
      */
     GlobeSurfaceTileProvider.prototype.update = function(frameState) {
@@ -502,7 +502,7 @@ define([
     GlobeSurfaceTileProvider.prototype.loadTile = function(frameState, tile) {
         GlobeSurfaceTile.processStateMachine(tile, frameState, this._terrainProvider, this._imageryLayers, this._vertexArraysToDestroy);
         var tileLoadedEvent = this._tileLoadedEvent;
-        tile._loadedCallbacks['tileLoadedEvent'] = function (tile) {
+        tile._loadedCallbacks['tileLoadedEvent'] = function(tile) {
             tileLoadedEvent.raiseEvent();
             return true;
         };
@@ -825,6 +825,7 @@ define([
     };
 
     var scratchClippingPlaneMatrix = new Matrix4();
+
     function createTileUniformMap(frameState, globeSurfaceTileProvider) {
         var uniformMap = {
             u_initialColor : function() {
@@ -1002,7 +1003,15 @@ define([
      * @returns {VertexArray} The vertex array for wireframe rendering.
      */
     function createWireframeVertexArray(context, vertexArray, terrainMesh) {
+        var position = new Cesium.GeometryAttribute({
+            componentDatatype : Cesium.ComponentDatatype.FLOAT,
+            componentsPerAttribute : 3,
+            values : new Float32Array(vertexArray.numberOfVertices * 3)
+        });
         var geometry = {
+            attributes: {
+                position: position
+            },
             indices : terrainMesh.indices,
             primitiveType : PrimitiveType.TRIANGLES
         };
@@ -1010,11 +1019,18 @@ define([
         GeometryPipeline.toWireframe(geometry);
 
         var wireframeIndices = geometry.indices;
+        var numberOfVertices = position.values.length / position.componentsPerAttribute;
+        var indexDatatype = IndexDatatype.UNSIGNED_SHORT;
+
+        if (numberOfVertices > CesiumMath.SIXTY_FOUR_KILOBYTES) {
+            indexDatatype = IndexDatatype.UNSIGNED_INT;
+        }
+
         var wireframeIndexBuffer = Buffer.createIndexBuffer({
             context : context,
             typedArray : wireframeIndices,
             usage : BufferUsage.STATIC_DRAW,
-            indexDatatype : IndexDatatype.UNSIGNED_SHORT
+            indexDatatype : indexDatatype
         });
         return new VertexArray({
             context : context,

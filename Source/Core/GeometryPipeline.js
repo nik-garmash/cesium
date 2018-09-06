@@ -72,10 +72,10 @@ define([
         lines[index] = i0;
     }
 
-    function trianglesToLines(triangles) {
+    function trianglesToLines(triangles, numberOfVertices) {
         var count = triangles.length;
         var size = (count / 3) * 6;
-        var lines = IndexDatatype.createTypedArray(count, size);
+        var lines = IndexDatatype.createTypedArray(numberOfVertices, size);
 
         var index = 0;
         for ( var i = 0; i < count; i += 3, index += 6) {
@@ -85,11 +85,11 @@ define([
         return lines;
     }
 
-    function triangleStripToLines(triangles) {
+    function triangleStripToLines(triangles, numberOfVertices) {
         var count = triangles.length;
         if (count >= 3) {
             var size = (count - 2) * 6;
-            var lines = IndexDatatype.createTypedArray(count, size);
+            var lines = IndexDatatype.createTypedArray(numberOfVertices, size);
 
             addTriangle(lines, 0, triangles[0], triangles[1], triangles[2]);
             var index = 6;
@@ -104,11 +104,11 @@ define([
         return new Uint16Array();
     }
 
-    function triangleFanToLines(triangles) {
+    function triangleFanToLines(triangles, numberOfVertices) {
         if (triangles.length > 0) {
             var count = triangles.length - 1;
             var size = (count - 1) * 6;
-            var lines = IndexDatatype.createTypedArray(count, size);
+            var lines = IndexDatatype.createTypedArray(numberOfVertices, size);
 
             var base = triangles[0];
             var index = 0;
@@ -146,16 +146,19 @@ define([
         //>>includeEnd('debug');
 
         var indices = geometry.indices;
+        var position = geometry.attributes.position;
+        var numberOfVertices = position.values.length / position.componentsPerAttribute;
+
         if (defined(indices)) {
             switch (geometry.primitiveType) {
                 case PrimitiveType.TRIANGLES:
-                    geometry.indices = trianglesToLines(indices);
+                    geometry.indices = trianglesToLines(indices, numberOfVertices);
                     break;
                 case PrimitiveType.TRIANGLE_STRIP:
-                    geometry.indices = triangleStripToLines(indices);
+                    geometry.indices = triangleStripToLines(indices, numberOfVertices);
                     break;
                 case PrimitiveType.TRIANGLE_FAN:
-                    geometry.indices = triangleFanToLines(indices);
+                    geometry.indices = triangleFanToLines(indices, numberOfVertices);
                     break;
                 //>>includeStart('debug', pragmas.debug);
                 default:
